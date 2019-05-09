@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "name": "wj",
+    "builds": [
+      {
+        "src": "index.js",
+        "use": "@now/node"
+      },
+      {
+        "src": "client/package.json",
+        "use": "@now/static-build",
+        "config": { "distDir": "client/build" }
+      }
+    ]
+  }
