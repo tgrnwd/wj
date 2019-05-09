@@ -8,8 +8,7 @@
       },
       {
         "src": "client/package.json",
-        "use": "@now/static-build",
-        "config": { "distDir": "client/build" }
+        "use": "@now/static-build"
       }
     ]
   }
