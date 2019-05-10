@@ -1,15 +1,43 @@
 {
-    "version": 2,
-    "name": "wj",
-    "builds": [
-      {
-        "src": "index.js",
-        "use": "@now/node-server"
-      },
-      {
-        "src": "client/package.json",
-        "use": "@now/static-build",
-        "config": { "distDir": "build" }
+  "version": 2,
+  "name": "wj",
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@now/node-server"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "build"
       }
-    ]
-  }
+    }
+  ],
+  
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": { "cache-control": "s-maxage=31536000,immutable" },
+      "dest": "/client/static/$1"
+    },
+    { "src": "/favicon.ico", "dest": "/client/favicon.ico" },
+    { "src": "/asset-manifest.json", "dest": "/client/asset-manifest.json" },
+    { "src": "/manifest.json", "dest": "/client/manifest.json" },
+    { "src": "/precache-manifest.(.*)", "dest": "/client/precache-manifest.$1" },
+    {
+      "src": "/",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "/client/index.html"
+    },
+    {
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+      },
+      "src": "/.*",
+      "dest": "/index.js"
+    }
+  ]
+}
